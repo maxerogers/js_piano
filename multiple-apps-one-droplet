@@ -1,0 +1,13 @@
+Sets i did to setup nginx and unicorn on my own server
+
+step 1: install rvm, ruby2.1.3 and rails 4.1.6 and nodejs(for the js runtime)
+step 2: mkdir /home/apps/
+step 3: cd /home/apps/
+step 4: rails new .
+step 5: test with rails s
+
+this tutorial worked
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-passenger-and-nginx-on-ubuntu-14-04
+
+Restart nginx
+sudo nginx -s reload

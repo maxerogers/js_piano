@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <h1> Mario Piano </h1>
-  <h2> by Max Rogers</h2>
 <canvas id="myCanvas" width="800" height="400" style="border:1px solid #c3c3c3;">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
@@ -10,19 +8,16 @@ Your browser does not support the HTML5 canvas tag.
 <script>
 var audioContext; //audio context
 var buf; //audio buffer
-var piano_grainNode;
 
-//setting up piano
-//var piano_grainNode = audioContext.createGain();
-//var source = audioContext.createBufferSource();
-//gainNode.connect(audioContext.destination);
 //play the loaded file
 function play() {
     //create a source node from the buffer
-    source.buffer = buf;
+    var src = audioContext.createBufferSource();
+    src.buffer = buf;
     //connect to the final output node (the speakers)
+    src.connect(audioContext.destination);
     //play immediately
-    source.noteOn(0);
+    src.noteOn(0);
 }
 
 //load and decode mp3 file
@@ -34,7 +29,7 @@ function loadFile() {
         //decode the loaded data
         audioContext.decodeAudioData(req.response, function(buffer) {
             buf = buffer;
-            //play();
+            play();
         });
     };
     req.send();
@@ -51,17 +46,6 @@ function init() {
     }
 }
 window.addEventListener('load',init,false);
-
-// lower volume
-function lowerVolume(){
-  gainNode.gain.value = 0.5*gainNode.gain.value;
-}
-// raise volume
-function raiseVolume(){
-  gainNode.gain.value = 2.0*gainNode.gain.value;
-}
-
-
 
 var c=document.getElementById("myCanvas");
 var ctx=c.getContext("2d");
@@ -115,22 +99,8 @@ for(i=0;i<15;i++){
   });
 }
 
-for(i=0;i<10;i++){
-
-var button = canvas.display.rectangle({
-  x: 62.5+(75*i),
-  y: 325,
-  origin: { x: "center", y: "top" },
-  width: 50,
-  height: 50,
-  fill: "white",
-  stroke: "outside 5px rgba(0, 0, 0, 1)"
-});
-canvas.addChild(button);
-}
-
-
 drawKeyLetters();
+
 </script>
 
 </body>
